@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  spells: {},
+  spells: [],
+  selectedSpell: {},
 };
 
 const allSpellSlice = createSlice({
@@ -11,10 +12,13 @@ const allSpellSlice = createSlice({
     setSpells: (state, { payload }) => {
       state.spells = payload;
     },
+    setSingleSpell: (state, { payload }) => {
+      state.selectedSpell = payload;
+    },
   },
 });
 
 const { reducer, actions } = allSpellSlice;
-export const { setSpells } = actions;
+export const { setSpells, setSingleSpell } = actions;
 
 export default reducer;

@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/fav" element={<Favourite />} />
-          <Route path="/main" element={<Main />} />
+          <Route path="/:index" element={<Main />} />
         </Routes>
       </div>
     </BrowserRouter>

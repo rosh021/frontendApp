@@ -7,7 +7,7 @@ import "./Navbar.css";
 export const CustomNavbar = () => {
   return (
     <div className="Navbar">
-      <Navbar expand="lg">
+      <Navbar expand="md">
         <Container>
           <Link to="/">
             <Navbar.Brand>Dungeons & Dragons</Navbar.Brand>

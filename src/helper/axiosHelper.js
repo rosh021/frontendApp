@@ -15,3 +15,7 @@ const apiProcessor = async (method, url) => {
 export const fetchAllSpells = () => {
   return apiProcessor("get", rootUrl);
 };
+
+export const fetchSingleSpells = (index) => {
+  return apiProcessor("get", rootUrl + "/" + index);
+};
