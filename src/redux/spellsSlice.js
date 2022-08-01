@@ -21,16 +21,36 @@ const allSpellSlice = createSlice({
       state.showModal = payload;
     },
     setFavourite: (state, { payload }) => {
+      const objExist = state.favourite.filter(
+        (item) => item._id === payload._id
+      );
+      if (objExist.length) {
+        return;
+      }
       const newSet = [...state.favourite, payload];
 
       localStorage.setItem("favourites", JSON.stringify(newSet));
       state.favourite = newSet;
     },
+    //payload is the id of the spell
+    removeFavourite: (state, { payload }) => {
+      const filteredItem = state.favourite.filter(
+        (item) => item._id !== payload
+      );
+
+      localStorage.setItem("favourites", JSON.stringify(filteredItem));
+      state.favourite = filteredItem;
+    },
   },
 });
 
 const { reducer, actions } = allSpellSlice;
-export const { setSpells, setSingleSpell, setShowModal, setFavourite } =
-  actions;
+export const {
+  setSpells,
+  setSingleSpell,
+  setShowModal,
+  setFavourite,
+  removeFavourite,
+} = actions;
 
 export default reducer;

@@ -12,6 +12,7 @@ import {
   setSingleSpell,
 } from "../../redux/spellsSlice";
 import { fetchOnlyParticularSpells } from "../../helper/axiosHelper";
+import { toast } from "react-toastify";
 
 export const Main = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,8 @@ export const Main = () => {
   };
 
   const addToFav = (selectedSpell) => {
-    dispatch(setSingleSpell(selectedSpell));
+    dispatch(setFavourite(selectedSpell));
+    toast("Spell is added to your Favourite");
   };
 
   return (
@@ -125,30 +127,32 @@ export const Main = () => {
                   </span>
                 </div>
               )}
-              {selectedSpell.classes &&
-                selectedSpell.classes.map((item, index) => (
-                  <div key={index}>
-                    <span className="fw-bold">Classes: </span>
+
+              <div>
+                <span className="fw-bold">Classes: </span>
+                {selectedSpell.classes &&
+                  selectedSpell.classes.map((item, index) => (
                     <span
                       className="spell_info"
                       onClick={() => showInfo(item.url)}
                     >
-                      {item.name}
+                      <li> {item.name}</li>
                     </span>
-                  </div>
-                ))}
-              {selectedSpell.subclasses &&
-                selectedSpell.subclasses.map((item, index) => (
-                  <div key={index}>
-                    <span className="fw-bold">SubClasses: </span>
+                  ))}
+              </div>
+
+              <div key={index}>
+                <span className="fw-bold">SubClasses: </span>
+                {selectedSpell.subclasses &&
+                  selectedSpell.subclasses.map((item, index) => (
                     <span
                       className="spell_info"
                       onClick={() => showInfo(item.url)}
                     >
                       <li>{item.name}</li>
                     </span>
-                  </div>
-                ))}
+                  ))}
+              </div>
             </Col>
           </Row>
         </Container>
