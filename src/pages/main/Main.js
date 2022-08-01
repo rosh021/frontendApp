@@ -2,20 +2,23 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { CustomNavbar } from "../../Components/navbar/CustomNavbar";
 import { useParams, Link } from "react-router-dom";
-import {
-  onlyOneSpellAction,
-  singleSpellAction,
-} from "../../redux/spellsAction";
+import { singleSpellAction } from "../../redux/spellsAction";
 import { useDispatch, useSelector } from "react-redux";
 import "./Main.css";
 import { CustomModel } from "../../Components/model/Model";
-import { setShowModal } from "../../redux/spellsSlice";
+import {
+  setFavourite,
+  setShowModal,
+  setSingleSpell,
+} from "../../redux/spellsSlice";
 import { fetchOnlyParticularSpells } from "../../helper/axiosHelper";
 
 export const Main = () => {
   const dispatch = useDispatch();
   const { index } = useParams("index");
   const { selectedSpell, showModal } = useSelector((state) => state.spells);
+
+  console.log(selectedSpell);
 
   useEffect(() => {
     dispatch(singleSpellAction(index));
@@ -40,19 +43,23 @@ export const Main = () => {
     dispatch(setShowModal(true));
   };
 
+  const addToFav = (selectedSpell) => {
+    dispatch(setSingleSpell(selectedSpell));
+  };
+
   return (
     <div>
       <CustomNavbar />
-      <CustomModel show={showModal} modelData={modelData}>
-        info herer
-      </CustomModel>
+      <CustomModel show={showModal} modelData={modelData}></CustomModel>
       <div>
         <div className="main__header">
           <h1 className=" fw-bold spell__heading text-center mt-4">
             {selectedSpell.name}
           </h1>
 
-          <button>Add to Favourite 💕</button>
+          <button onClick={() => addToFav(selectedSpell)}>
+            Add to Favourite 💕
+          </button>
         </div>
 
         <div className="desc container mt-4">

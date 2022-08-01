@@ -1,10 +1,20 @@
+import { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-
+import { setFavourite } from "../../redux/spellsSlice";
 export const CustomTable = () => {
-  const { spells } = useSelector((state) => state.spells);
+  const dispatch = useDispatch();
+  const { spells, favourite } = useSelector((state) => state.spells);
+
+  useEffect(() => {
+    const storedFav = JSON.parse(localStorage.getItem("favourites"));
+
+    storedFav?.length > 0 &&
+      favourite?.length < 1 &&
+      dispatch(setFavourite(storedFav));
+  }, []);
 
   return (
     <Table striped bordered hover variant="dark" className="mt-5">
