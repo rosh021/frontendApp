@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
+
 const initialState = {
   spells: [],
   selectedSpell: {},
@@ -32,7 +32,7 @@ const allSpellSlice = createSlice({
       localStorage.setItem("favourites", JSON.stringify(newSet));
       state.favourite = newSet;
     },
-    //payload is the id of the spell
+
     removeFavourite: (state, { payload }) => {
       const filteredItem = state.favourite.filter(
         (item) => item._id !== payload

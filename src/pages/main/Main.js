@@ -6,11 +6,7 @@ import { singleSpellAction } from "../../redux/spellsAction";
 import { useDispatch, useSelector } from "react-redux";
 import "./Main.css";
 import { CustomModel } from "../../Components/model/Model";
-import {
-  setFavourite,
-  setShowModal,
-  setSingleSpell,
-} from "../../redux/spellsSlice";
+import { setFavourite, setShowModal } from "../../redux/spellsSlice";
 import { fetchOnlyParticularSpells } from "../../helper/axiosHelper";
 import { toast } from "react-toastify";
 
@@ -63,7 +59,10 @@ export const Main = () => {
             {selectedSpell.name}
           </h1>
 
-          <button onClick={() => addToFav(selectedSpell)}>
+          <button
+            className="main__button"
+            onClick={() => addToFav(selectedSpell)}
+          >
             Add to Favourite 💕
           </button>
         </div>
@@ -87,8 +86,9 @@ export const Main = () => {
             <Col>
               {moreInfo.map(
                 (item, index) =>
-                  Object.values(item) && (
+                  Object.values(item).toString() !== "" && (
                     <div key={index}>
+                      {console.log(Object.values(item).toString())}
                       <span className="fw-bold">{Object.keys(item)}: </span>
                       {Object.values(item).toString()}
                     </div>
@@ -133,7 +133,9 @@ export const Main = () => {
               )}
 
               <div>
-                <span className="fw-bold">Classes: </span>
+                {selectedSpell.classes?.length > 0 && (
+                  <span className="fw-bold">Classes: </span>
+                )}
                 {selectedSpell.classes &&
                   selectedSpell.classes.map((item, index) => (
                     <span
@@ -147,7 +149,9 @@ export const Main = () => {
               </div>
 
               <div>
-                <span className="fw-bold">SubClasses: </span>
+                {selectedSpell.subclasses?.length > 0 && (
+                  <span className="fw-bold">SubClasses: </span>
+                )}
                 {selectedSpell.subclasses &&
                   selectedSpell.subclasses.map((item, index) => (
                     <span

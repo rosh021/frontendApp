@@ -23,7 +23,9 @@ export const LandingPage = () => {
   return (
     <div>
       <CustomNavbar />
-      <h1 className="text-center mt-3">{spells?.length} Total Spells Found</h1>
+      <h1 className="text-center mt-3 favourite_h1">
+        {spells?.length} Total Spells Found
+      </h1>
 
       <CustomTable isSpinning={isSpinning} />
     </div>

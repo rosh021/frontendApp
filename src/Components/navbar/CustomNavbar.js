@@ -6,25 +6,23 @@ import "./Navbar.css";
 
 export const CustomNavbar = () => {
   return (
-    <div className="Navbar">
-      <Navbar expand="md">
-        <Container>
-          <Link to="/">
-            <Navbar.Brand>Dungeons & Dragons</Navbar.Brand>
-          </Link>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto">
-              <Link to="/" className="nav-link">
-                Home
-              </Link>
-              <Link to="/fav" className="nav-link">
-                Your Favourite
-              </Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </div>
+    <Navbar expand="lg">
+      <Container>
+        <Link to="/">
+          <Navbar.Brand>Dungeons & Dragons</Navbar.Brand>
+        </Link>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto">
+            <Link to="/" className="nav-link">
+              Home
+            </Link>
+            <Link to="/fav" className="nav-link">
+              Your Favourite
+            </Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };

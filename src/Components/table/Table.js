@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import Spinner from "react-bootstrap/Spinner";
 import { useSelector, useDispatch } from "react-redux";
@@ -36,6 +36,9 @@ export const CustomTable = ({ isClicked, isSpinning }) => {
         variant="dark"
         className="mt-5 ms-auto table"
       >
+        {isSpinning === true && (
+          <Spinner animation="border" variant="success" />
+        )}
         <thead>
           <tr>
             <th className="text-center">#</th>
@@ -45,9 +48,7 @@ export const CustomTable = ({ isClicked, isSpinning }) => {
             {isClicked === true && <th className="text-center">Delete</th>}
           </tr>
         </thead>
-        {isSpinning === true && (
-          <Spinner animation="border" variant="success" />
-        )}
+
         <tbody>
           {isClicked === true
             ? favourite.map(({ index, name, _id }, i) => (
@@ -56,12 +57,17 @@ export const CustomTable = ({ isClicked, isSpinning }) => {
                   <td className="text-center">{index}</td>
                   <td className="text-center">{name}</td>
                   <td className="text-center">
-                    <Link to={`/${index}`}>Read More</Link>
+                    <Link className="grow" to={`/${index}`}>
+                      Read More
+                    </Link>
                   </td>
                   <td className="text-center">
-                    <Button onClick={() => handelOnDelete(_id, name)}>
+                    <button
+                      className="main__button"
+                      onClick={() => handelOnDelete(_id, name)}
+                    >
                       Delete
-                    </Button>
+                    </button>
                   </td>
                 </tr>
               ))
@@ -71,7 +77,9 @@ export const CustomTable = ({ isClicked, isSpinning }) => {
                   <td className="text-center">{index}</td>
                   <td className="text-center">{name}</td>
                   <td className="text-center">
-                    <Link to={`/${index}`}>Read More</Link>
+                    <Link className="grow" to={`/${index}`}>
+                      Read More
+                    </Link>
                   </td>
                 </tr>
               ))}
