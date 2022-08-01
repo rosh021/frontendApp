@@ -3,7 +3,6 @@ import Modal from "react-bootstrap/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowModal } from "../../redux/spellsSlice";
 export const CustomModel = ({ modelData, ...rest }) => {
-  console.log(modelData);
   const dispatch = useDispatch();
   return (
     <Modal

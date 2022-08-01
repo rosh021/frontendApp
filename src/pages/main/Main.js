@@ -17,9 +17,9 @@ import { toast } from "react-toastify";
 export const Main = () => {
   const dispatch = useDispatch();
   const { index } = useParams("index");
-  const { selectedSpell, showModal } = useSelector((state) => state.spells);
-
-  console.log(selectedSpell);
+  const { selectedSpell, showModal, favourite } = useSelector(
+    (state) => state.spells
+  );
 
   useEffect(() => {
     dispatch(singleSpellAction(index));
@@ -45,8 +45,12 @@ export const Main = () => {
   };
 
   const addToFav = (selectedSpell) => {
+    const objExist = favourite.filter((item) => item._id === selectedSpell._id);
+    if (objExist.length) {
+      return toast.error("OOPS !! Already Added to Favourite");
+    }
     dispatch(setFavourite(selectedSpell));
-    toast("Spell is added to your Favourite");
+    toast.success("Added to your Favourite");
   };
 
   return (
@@ -64,25 +68,25 @@ export const Main = () => {
           </button>
         </div>
 
-        <div className="desc container mt-4">
-          <h3>Description</h3>
+        <div className="desc container">
+          <h3 className="text-center fw-bold mt-2 my-3">Description</h3>
 
           {selectedSpell.desc}
         </div>
 
         {selectedSpell.higher_level?.length > 0 && (
-          <div className="higher__level container mt-4">
-            <h3>Higher Level</h3>
+          <div className="higher__level container">
+            <h3 className="text-center fw-bold mt-2 my-3">Higher Level</h3>
             {selectedSpell.higher_level}
           </div>
         )}
 
-        <Container className="mt-5">
-          <h1 className="text-center">More Details</h1>
+        <Container className="mt-5 more__details">
+          <h3 className="text-center fw-bold mt-2 my-3">More Details</h3>
           <Row>
             <Col>
               {moreInfo.map(
-                (item, indx) =>
+                (item, index) =>
                   Object.values(item) && (
                     <div key={index}>
                       <span className="fw-bold">{Object.keys(item)}: </span>
@@ -133,6 +137,7 @@ export const Main = () => {
                 {selectedSpell.classes &&
                   selectedSpell.classes.map((item, index) => (
                     <span
+                      key={index}
                       className="spell_info"
                       onClick={() => showInfo(item.url)}
                     >
@@ -141,11 +146,12 @@ export const Main = () => {
                   ))}
               </div>
 
-              <div key={index}>
+              <div>
                 <span className="fw-bold">SubClasses: </span>
                 {selectedSpell.subclasses &&
                   selectedSpell.subclasses.map((item, index) => (
                     <span
+                      key={index}
                       className="spell_info"
                       onClick={() => showInfo(item.url)}
                     >
