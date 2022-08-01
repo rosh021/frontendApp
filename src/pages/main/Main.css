@@ -1,0 +1,9 @@
+.spell_info {
+  cursor: pointer;
+}
+
+.main__header {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+}

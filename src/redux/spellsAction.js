@@ -1,5 +1,9 @@
-import { fetchAllSpells, fetchSingleSpells } from "../helper/axiosHelper.js";
-import { setSingleSpell, setSpells } from "./spellsSlice.js";
+import {
+  fetchAllSpells,
+  fetchOnlyParticularSpells,
+  fetchSingleSpells,
+} from "../helper/axiosHelper.js";
+import { setSingleSpell, setSpells, setShowModal } from "./spellsSlice.js";
 
 export const spellsAction = () => async (dispatch) => {
   const { results } = await fetchAllSpells();
@@ -12,3 +16,5 @@ export const singleSpellAction = (index) => async (dispatch) => {
 
   dispatch(setSingleSpell(results));
 };
+
+

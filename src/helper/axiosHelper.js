@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const rootUrl = "https://www.dnd5eapi.co/api/spells";
-const descriptionEp = rootUrl + " ";
+const onlyOneSpells = "https://www.dnd5eapi.co";
 
 const apiProcessor = async (method, url) => {
   const response = await axios({
@@ -18,4 +18,8 @@ export const fetchAllSpells = () => {
 
 export const fetchSingleSpells = (index) => {
   return apiProcessor("get", rootUrl + "/" + index);
+};
+
+export const fetchOnlyParticularSpells = (index) => {
+  return apiProcessor("get", onlyOneSpells + index);
 };

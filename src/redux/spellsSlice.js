@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   spells: [],
   selectedSpell: {},
+  showModal: false,
 };
 
 const allSpellSlice = createSlice({
@@ -15,10 +16,13 @@ const allSpellSlice = createSlice({
     setSingleSpell: (state, { payload }) => {
       state.selectedSpell = payload;
     },
+    setShowModal: (state, { payload }) => {
+      state.showModal = payload;
+    },
   },
 });
 
 const { reducer, actions } = allSpellSlice;
-export const { setSpells, setSingleSpell } = actions;
+export const { setSpells, setSingleSpell, setShowModal } = actions;
 
 export default reducer;

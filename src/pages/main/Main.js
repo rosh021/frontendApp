@@ -1,16 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { CustomNavbar } from "../../Components/navbar/CustomNavbar";
-import { useParams } from "react-router-dom";
-import { singleSpellAction } from "../../redux/spellsAction";
+import { useParams, Link } from "react-router-dom";
+import {
+  onlyOneSpellAction,
+  singleSpellAction,
+} from "../../redux/spellsAction";
 import { useDispatch, useSelector } from "react-redux";
 import "./Main.css";
+import { CustomModel } from "../../Components/model/Model";
+import { setShowModal } from "../../redux/spellsSlice";
+import { fetchOnlyParticularSpells } from "../../helper/axiosHelper";
 
 export const Main = () => {
   const dispatch = useDispatch();
   const { index } = useParams("index");
+  const { selectedSpell, showModal } = useSelector((state) => state.spells);
 
-  const { selectedSpell } = useSelector((state) => state.spells);
+  useEffect(() => {
+    dispatch(singleSpellAction(index));
+  }, [index, showModal]);
+  const [modelData, setModelData] = useState({});
+
   const moreInfo = [
     { Range: selectedSpell.range },
     { Components: selectedSpell.components },
@@ -23,26 +34,26 @@ export const Main = () => {
     { AttackType: selectedSpell.attack_type },
   ];
 
-  // const linkInfo = [
-  //   { Damage: selectedSpell?.damage?.damage_type?.name },
-  //   { Dex: selectedSpell?.name },
-  //   { School: selectedSpell?.school?.name },
-  //   { Classes: selectedSpell?.classes},
-  //   { SubClasses: selectedSpell?.subclasses},
-  // ];
-  // console.log(linkInfo);
-
-  useEffect(() => {
-    dispatch(singleSpellAction(index));
-  }, [index]);
+  const showInfo = async (str) => {
+    const result = await fetchOnlyParticularSpells(str);
+    setModelData(result);
+    dispatch(setShowModal(true));
+  };
 
   return (
     <div>
       <CustomNavbar />
+      <CustomModel show={showModal} modelData={modelData}>
+        info herer
+      </CustomModel>
       <div>
-        <h1 className="spell__heading text-center mt-4">
-          {selectedSpell.name}
-        </h1>
+        <div className="main__header">
+          <h1 className=" fw-bold spell__heading text-center mt-4">
+            {selectedSpell.name}
+          </h1>
+
+          <button>Add to Favourite 💕</button>
+        </div>
 
         <div className="desc container mt-4">
           <h3>Description</h3>
@@ -50,7 +61,7 @@ export const Main = () => {
           {selectedSpell.desc}
         </div>
 
-        {selectedSpell.higher_level.length > 0 && (
+        {selectedSpell.higher_level?.length > 0 && (
           <div className="higher__level container mt-4">
             <h3>Higher Level</h3>
             {selectedSpell.higher_level}
@@ -75,36 +86,60 @@ export const Main = () => {
               {selectedSpell.damage && (
                 <div>
                   <span className="fw-bold">DamageType: </span>
-                  {selectedSpell.damage.damage_type.name}
+                  <span
+                    className="spell_info"
+                    onClick={() =>
+                      showInfo(selectedSpell.damage.damage_type.url)
+                    }
+                  >
+                    {selectedSpell.damage.damage_type.name}
+                  </span>
                 </div>
               )}
               {selectedSpell.dc && (
                 <div>
                   <span className="fw-bold">DCType: </span>
-                  {selectedSpell.dc.dc_type.name}
+                  <span
+                    className="spell_info"
+                    onClick={() => showInfo(selectedSpell.dc.dc_type.url)}
+                  >
+                    {selectedSpell.dc.dc_type.name}
+                  </span>
                 </div>
               )}
               {selectedSpell.school && (
                 <div>
                   <span className="fw-bold">School: </span>
-                  {selectedSpell.school.name}
+                  <span
+                    className="spell_info"
+                    onClick={() => showInfo(selectedSpell.school.url)}
+                  >
+                    {selectedSpell.school.name}
+                  </span>
                 </div>
               )}
               {selectedSpell.classes &&
                 selectedSpell.classes.map((item, index) => (
                   <div key={index}>
                     <span className="fw-bold">Classes: </span>
-                    {item.name}
+                    <span
+                      className="spell_info"
+                      onClick={() => showInfo(item.url)}
+                    >
+                      {item.name}
+                    </span>
                   </div>
                 ))}
               {selectedSpell.subclasses &&
                 selectedSpell.subclasses.map((item, index) => (
                   <div key={index}>
                     <span className="fw-bold">SubClasses: </span>
-                    <li>{item.name}</li>
-                    {/* <ul>
+                    <span
+                      className="spell_info"
+                      onClick={() => showInfo(item.url)}
+                    >
                       <li>{item.name}</li>
-                    </ul> */}
+                    </span>
                   </div>
                 ))}
             </Col>

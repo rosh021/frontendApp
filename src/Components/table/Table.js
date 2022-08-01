@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 export const CustomTable = () => {
   const { spells } = useSelector((state) => state.spells);
-  console.log(spells);
 
   return (
     <Table striped bordered hover variant="dark" className="mt-5">
