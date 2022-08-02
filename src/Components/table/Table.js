@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { removeFavourite, setFavourite } from "../../redux/spellsSlice";
 import "./Table.css";
-export const CustomTable = ({ isClicked, isSpinning }) => {
+export const CustomTable = ({ tableHeaders, func, isSpinning }) => {
   const dispatch = useDispatch();
   const { spells, favourite } = useSelector((state) => state.spells);
 
@@ -28,40 +28,34 @@ export const CustomTable = ({ isClicked, isSpinning }) => {
   };
 
   return (
-    <Container>
-      <Table
-        striped
-        bordered
-        hover
-        variant="dark"
-        className="mt-5 ms-auto table"
-      >
+    <Container className=" mt-5">
+      <div className="row py-2">{spells?.length} Total Spells Found!</div>
+      <Table striped bordered hover>
         {isSpinning === true && (
           <Spinner animation="border" variant="success" />
         )}
         <thead>
           <tr>
-            <th className="text-center">#</th>
-            <th className="text-center">Index</th>
-            <th className="text-center">Name</th>
-            <th className="text-center">Visit</th>
-            {isClicked === true && <th className="text-center">Delete</th>}
+            <th>#</th>
+            {tableHeaders.map((item, i) => (
+              <th key={i}>{item}</th>
+            ))}
           </tr>
         </thead>
 
         <tbody>
-          {isClicked === true
+          {func === true
             ? favourite.map(({ index, name, _id }, i) => (
-                <tr key={i}>
-                  <td className="text-center">{i > 0 ? 1 + i : 1}</td>
-                  <td className="text-center">{index}</td>
-                  <td className="text-center">{name}</td>
-                  <td className="text-center">
+                <tr key={i} className="text-center">
+                  <td>{i + 1}</td>
+                  <td>{index}</td>
+                  <td>{name}</td>
+                  <td>
                     <Link className="grow" to={`/${index}`}>
                       Read More
                     </Link>
                   </td>
-                  <td className="text-center">
+                  <td>
                     <button
                       className="main__button"
                       onClick={() => handelOnDelete(_id, name)}
@@ -72,11 +66,11 @@ export const CustomTable = ({ isClicked, isSpinning }) => {
                 </tr>
               ))
             : spells.map(({ index, name }, i) => (
-                <tr key={i}>
-                  <td className="text-center">{i > 0 ? 1 + i : 1}</td>
-                  <td className="text-center">{index}</td>
-                  <td className="text-center">{name}</td>
-                  <td className="text-center">
+                <tr key={i} className="text-center">
+                  <td>{i + 1}</td>
+                  <td>{index}</td>
+                  <td>{name}</td>
+                  <td>
                     <Link className="grow" to={`/${index}`}>
                       Read More
                     </Link>

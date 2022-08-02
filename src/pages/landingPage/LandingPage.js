@@ -20,14 +20,18 @@ export const LandingPage = () => {
     setIsSpinning(true);
     await dispatch(spellsAction());
   };
+
+  const tableHeaders = ["Index", "Name", "Visit"];
+  const tableData = [];
+
   return (
     <div>
       <CustomNavbar />
-      <h1 className="text-center mt-3 favourite_h1">
-        {spells?.length} Total Spells Found
+      <h1 className="text-center mt-3 favourite_h1 py-4">
+        Welcome to the Spells world!
       </h1>
 
-      <CustomTable isSpinning={isSpinning} />
+      <CustomTable tableHeaders={tableHeaders} />
     </div>
   );
 };

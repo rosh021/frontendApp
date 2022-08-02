@@ -9,5 +9,6 @@
 
 .home {
   min-height: 100vh;
-  background-color: #d6dbde;
+  background: rgb(202, 227, 255);
+  /* background-color: #d6dbde; */
 }

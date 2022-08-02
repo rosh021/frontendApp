@@ -6,6 +6,7 @@ export const Favourite = () => {
   const [isClicked, isSetClicked] = useState(true);
 
   const { favourite } = useSelector((state) => state.spells);
+  const tableHeaders = ["Index", "Name", "Visit", "Delete"];
   return (
     <div>
       <CustomNavbar />
@@ -18,7 +19,7 @@ export const Favourite = () => {
           You haven't added any spells in your favourite list
         </h1>
       )}
-      <CustomTable isClicked={isClicked} />
+      <CustomTable func={isClicked} tableHeaders={tableHeaders} />
     </div>
   );
 };

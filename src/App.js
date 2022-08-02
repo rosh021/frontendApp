@@ -10,13 +10,11 @@ function App() {
   return (
     <div className="home">
       <BrowserRouter>
-        <div>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/fav" element={<Favourite />} />
-            <Route path="/:index" element={<Main />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/fav" element={<Favourite />} />
+          <Route path="/:index" element={<Main />} />
+        </Routes>
       </BrowserRouter>
       <ToastContainer />
     </div>

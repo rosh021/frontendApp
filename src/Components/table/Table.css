@@ -1,15 +1,16 @@
 .table {
   box-sizing: border-box;
+  background-color: white;
   box-shadow: 5px 5px 5px #888888;
 }
 
 .grow {
   text-decoration: none;
-  color: white;
+  color: black;
 }
 
 .grow:hover {
-  color: white;
+  color: blue;
   text-decoration: underline;
 
   transform: scale(1.3);
