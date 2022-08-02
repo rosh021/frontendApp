@@ -46,7 +46,11 @@ export const CustomTable = ({ tableHeaders, func, isSpinning }) => {
 
   return (
     <Container className=" mt-5">
-      <div className="row py-2">{spells?.length} Total Spells Found!</div>
+      {func === true ? (
+        ""
+      ) : (
+        <div className="row py-2">{spells?.length} Total Spells Found!</div>
+      )}
       <Table striped bordered hover>
         {isSpinning === true && (
           <Spinner animation="border" variant="success" />
@@ -62,30 +66,26 @@ export const CustomTable = ({ tableHeaders, func, isSpinning }) => {
 
         <tbody>
           {func === true
-            ? favourite.map(
-                ({ index, name, _id }, i) =>
-                  i >= spellStartAt &&
-                  i < spellEndAt && (
-                    <tr key={i} className="text-center">
-                      <td>{i + 1}</td>
-                      <td>{index}</td>
-                      <td>{name}</td>
-                      <td>
-                        <Link className="grow" to={`/${index}`}>
-                          Read More
-                        </Link>
-                      </td>
-                      <td>
-                        <button
-                          className="main__button"
-                          onClick={() => handelOnDelete(_id, name)}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  )
-              )
+            ? favourite.map(({ index, name, _id }, i) => (
+                <tr key={i} className="text-center">
+                  <td>{i + 1}</td>
+                  <td>{index}</td>
+                  <td>{name}</td>
+                  <td>
+                    <Link className="grow" to={`/${index}`}>
+                      Read More
+                    </Link>
+                  </td>
+                  <td>
+                    <button
+                      className="main__button"
+                      onClick={() => handelOnDelete(_id, name)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
             : displaySpells.map(
                 ({ index, name }, i) =>
                   i >= spellStartAt &&

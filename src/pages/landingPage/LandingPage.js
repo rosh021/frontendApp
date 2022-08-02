@@ -22,7 +22,6 @@ export const LandingPage = () => {
   };
 
   const tableHeaders = ["Index", "Name", "Visit"];
-  const tableData = [];
 
   return (
     <div>
